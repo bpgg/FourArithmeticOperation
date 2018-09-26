@@ -20,16 +20,45 @@ public class Main {
     private static String[] mStrings = {"+", "-", "×", "÷"}; //注意一些大小写显示的问题 还有符号英文汉语不一样的问题
     private static List<Result> mList = new ArrayList<>();
     private static Result mResult;
+    private  static int iQuestions=500;
+    private  static  int iRange=10;
     public static void main(String[] args) {
-        doWork();
+//        doWork();
+//        if(args[0]=="-n"){
+//            iQuestions=Integer.valueOf(args[1]);
+//        }
+//        if(args[0]=="-r"){
+//            iRange = Integer.valueOf(args[1]);
+//        }
+        System.out.println(System.currentTimeMillis());
+        while (mList.size()!=10000){
+
+            String ex = Operation.generateQuestion();
+           Node tree =  TreeUtil.createTree(StringUtil.InfixToPostfix(ex ));
+            if(generate1(tree).isIllegal()&&!isEquals(mResult)){
+                mResult.setExpression(ex);
+                mList.add(mResult);
+                //添加案到答案文件
+            }
+
+
+
+        }
+        for (Result result:mList) {
+            System.out.println(result.getExpression()+" ="+result.getResult());
+        }
+        System.out.println(System.currentTimeMillis());
+
     }
+
+
     public static void  doWork(){
         //表达对象
         int index = 0;
-        int iArea=500;
-        String[] strs =new String[iArea];
-        Node[] nodes = new Node[iArea];
-        String[] qs = new String [iArea];
+        //int iQuestions=500;
+        String[] strs =new String[iQuestions];
+        Node[] nodes = new Node[iQuestions];
+        String[] qs = new String [iQuestions];
 
         //文件操作对象
         FileOutputStream outSTr1 ;
@@ -43,7 +72,7 @@ public class Main {
             Buff2 = new BufferedOutputStream(outSTr2);
             long begin0 = System.currentTimeMillis();
 
-            while(index<iArea)
+            while(index<iQuestions)
             {
                 //随机生成表达式子
                 qs[index]=Operation.generateQuestion();
