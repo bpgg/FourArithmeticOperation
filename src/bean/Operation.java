@@ -1,37 +1,32 @@
 package bean;
 
 
-import utils.CalculateUtil;
+
 
 import java.util.Random;
 
 public class Operation {
 
-    Random randomer = new Random();
-    char[] cSigns={'+','-','×','÷'};
-    CalculateUtil ca = new CalculateUtil();
-    public String generateQuestion(Expression e1,Expression e2)
+    private static Random randomer = new Random();
+    private static char[] cSigns={'+','-','×','÷'};
+    private static Expression e1;
+    private  static Expression e2;
+    public static String generateQuestion()
     {
+        e1 = new Expression();
+        e2 = new Expression();
         char op = cSigns[randomer.nextInt(4)];
 
         //判断是否添加括号
         if(randomer.nextBoolean())
         {
-            return addBracket(e1,e2,op);
+           // return addBracket(e1,e2,op);
         }
         return getStringExpression(e1)+" "+op+" "+getStringExpression(e2);
     }
     //添加括号
     public String addBracket(Expression e1,Expression e2,char op)
     {
-//        //变换 / 号
-//        if(op=='/')
-//        {
-//           op='÷';
-//        }
-//        if(op=='*'){
-//            op='×';
-//        }
         int iModule;
         //先确定模式，再添加括号
         if(e1.op=='#'&&e2.op=='#')
@@ -42,7 +37,7 @@ public class Operation {
         {
             iModule=1;
         }
-        else if(e1.op=='#'&&e2.op!='#')
+        else if(e1.op=='#')
         {
             iModule=2;
         }
@@ -99,40 +94,13 @@ public class Operation {
 
                 default:
                     System.out.println("没有添加括号");
-
         }
 
         return "";
     }
-    //判断对象对应的表达式是否合理
-    ///////////////////////////////////////////////////////////////////////////////
-    boolean isRight(Expression e) {
-        if(e.op=='#')
-        {
-            return true;
-        }
-        //不能为负数。op1<op2的时候要交换数据
-        if(e.op=='-')
-        {
-            if(CalculateUtil.subtract(e.op1,e.op2).contains("-"))
-            {
-                swaapOperand(e);
-            }
-        }
-        //因为没有生成0的情况，所以不考虑除
-        //但是两个e的时候要考虑
-        return false;
-    }
-    ///////////////////////////////////////////////////
-    //交换操作数位置
-    public void swaapOperand(Expression e)
-    {
-        String op3 = e.op1;
-        e.op1 = e.op2;
-        e.op2 = op3;
-    }
+
     //获取表达式对象对应的式子
-    public String getStringExpression(Expression e) {
+    public static String getStringExpression(Expression e) {
         if(e.op=='#')
         {
             return e.op1;
@@ -147,8 +115,8 @@ public class Operation {
     {
         String sOpreand="";
 
-        int iFlag;
-        switch(iFlag=randomer.nextInt(3)) {
+
+        switch(randomer.nextInt(3)) {
             case 0://生成带分数
                 sOpreand = (randomer.nextInt(10)+1)+"’"+generatePrimes();
                 break;
@@ -163,7 +131,7 @@ public class Operation {
     }
 
     //生成分数
-    public String generatePrimes()
+    private String generatePrimes()
     {
         //分子最大为8
         int iNumerator=randomer.nextInt(10)+1;
@@ -182,7 +150,7 @@ public class Operation {
         return iNumerator+"/"+iDenominator;
     }
     //求最大公约数
-    public int getComDivisor(int a,int b)
+    private int getComDivisor(int a,int b)
     {
         int i=1;
         int comDivisor=1;
@@ -200,23 +168,5 @@ public class Operation {
             i++;
         }
         return comDivisor;
-    }
-
-    public boolean compareValue(String val1,String val2)
-    {
-        //自然数&自然数
-
-        //真分数与真分数
-
-        //带分数与带分数
-
-        //自然数&带分数
-
-        //自然数与真分数
-
-        //真分数与带分数
-
-
-        return  false;
     }
 }

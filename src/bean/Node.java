@@ -9,14 +9,14 @@ public class Node {
     private Node mRightChild;
 
 
-    public Node(String data) {
+     public Node(String data) {
         mData = data;
         mIsOperate = false;
         mOperate = "";
 
     }
 
-    public Node(String operate,boolean isOperate) {
+     public Node(String operate,boolean isOperate) {
         mIsOperate = isOperate;
         mData = "";
         mOperate = operate;

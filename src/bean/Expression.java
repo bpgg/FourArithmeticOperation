@@ -3,16 +3,16 @@ package bean;
 import java.util.Random;
 
 public class Expression {
-    String op1="";
+    String op1;
     String op2="";
     char op='#';
-    Random randomer = new Random();
-    boolean has2Operand = false;
-    char[] cSigns={'+','-','×','÷'};
-    Operation oper = new Operation();
+    private Random randomer = new Random();
+
+    private char[] cSigns={'+','-','×','÷'};
+    private Operation oper = new Operation();
 
     public Expression() {
-        if(has2Operand=randomer.nextBoolean())
+        if(randomer.nextBoolean())
         {
             //初始化生成的操作数
             this.op1 = oper.generateOperand();
@@ -27,14 +27,6 @@ public class Expression {
             {
                 this.op2 =oper.generateOperand();
             }
-
-//            if(this.op=='/'){
-//                this.op='÷';
-//            }
-//            if(this.op=='*'){
-//                this.op='×';
-//                System.out.println("转换乘号-子表达式");
-//            }
         }
         else
         {
@@ -42,17 +34,6 @@ public class Expression {
         }
     }
 
-    public static void main(String[] args) {
-        Operation oper = new Operation();
-        int i=0;
-        Expression e;
-        while (i<100)
-        {
-            e=new Expression();
-            System.out.println(oper.getStringExpression(e));
-            i++;
-        }
-        System.out.println();
-    }
+
 
 }
